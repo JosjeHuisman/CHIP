@@ -1,0 +1,9 @@
+```bash
+macs3 callpeak -t ~/data/mm10_C57CHIP/filtered_BAM/C57-BMDM-ChIP-MAFb-MB1_S54.filtered.bam \
+  --outdir ~/data/mm10_C57CHIP/peak_calling \
+  -n Mafb_test \
+  -q 1e-3 \
+  --verbose 0 &
+
+macs3 callpeak   -t ~/data/mm10_C57CHIP/filtered_BAM/C57-BMDM-ChIP-MAFb-MB1_S54.filtered.bam   --outdir ~/data/mm10_C57CHIP/peak_calling   -n Mafb_test_with_coverage   -q 1e-9   --bdg   --verbose 0
+```
