@@ -7,3 +7,5 @@ macs3 callpeak -t ~/data/mm10_C57CHIP/filtered_BAM/C57-BMDM-ChIP-MAFb-MB1_S54.fi
 
 macs3 callpeak   -t ~/data/mm10_C57CHIP/filtered_BAM/C57-BMDM-ChIP-MAFb-MB1_S54.filtered.bam   --outdir ~/data/mm10_C57CHIP/peak_calling   -n Mafb_test_with_coverage   -q 1e-9   --bdg   --verbose 0
 ```
+# To add coverage to bed file
+bedtools coverage -a C57-BMDM-ChIP-MAFb-MB1_S54.filtered.bam.MACS3.p-9_peaks.bed -b ~/data/mm10_C57CHIP/filtered_BAM/C57-BMDM-ChIP-MAFb-MB1_S54.filtered.bam > Mafb_with_coverage2.bed
