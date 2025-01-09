@@ -9,5 +9,6 @@ macs3 callpeak   -t ~/data/mm10_C57CHIP/filtered_BAM/C57-BMDM-ChIP-MAFb-MB1_S54.
 ```
 # To add coverage to bed file
 bedtools coverage -a C57-BMDM-ChIP-MAFb-MB1_S54.filtered.bam.MACS3.p-9_peaks.bed -b ~/data/mm10_C57CHIP/filtered_BAM/C57-BMDM-ChIP-MAFb-MB1_S54.filtered.bam > Mafb_with_coverage2.bed
+To have unique Peak ID: awk '!seen[$4]++' Mafb_with_coverage2.bed > Mafb_with_coverage2_unique.bed
 
 findMotifsGenome.pl Mafb_with_coverage2.bed mm10 ~/data/mm10_C57CHIP/results/Mafb/ -size 200
