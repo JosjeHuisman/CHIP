@@ -43,30 +43,45 @@ plotHeatmap -m matrix_pol2_ifny_merged.gz -out Pol2_IFNy_merged_heatmap__STAT_pe
 #SBATCH --mem=16G
 #SBATCH --cpus-per-task=4
 
-# Load your conda environment
+# Load your conda environment (adjust name if needed)
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate deeptools_env
 
 # Run multiBigwigSummary in bins mode
 multiBigwigSummary bins \
-  --bwfiles BMDM-pSTAT1-ctrl-MB46_S360.filtered.bw \
-            BMDM-pSTAT3-ctrl-MB47_S361.filtered.bw \
-            BMDM-pSTAT1-2hIFNy-MB47_S364.filtered.bw \
-            BMDM-pSTAT3-2hIFNy-MB48_S365.filtered.bw \
+  --bwfiles \
+    BMDM-pSTAT1-ctrl-MB46_S360.filtered.bw \
+    BMDM-pSTAT3-ctrl-MB47_S361.filtered.bw \
+    BMDM-pSTAT1-2hIFNy-MB47_S364.filtered.bw \
+    BMDM-pSTAT3-2hIFNy-MB48_S365.filtered.bw \
+    BMDM-IFNy-pSTAT1-MB30_S303.filtered.bw \
+    BMDM-IFNy-pSTAT3-MB31_S304.filtered.bw \
+    BMDM-ctrl-pSTAT1-MB28_S301.filtered.bw \
+    BMDM-ctrl-pSTAT3-MB29_S302.filtered.bw \
+    BMDM-Pol2-2hIFNy-new-MB45_S359.filtered.bw \
+    BMDM-Pol2-ctrl-old-MB45_S356.filtered.bw \
+    BMDM-Pol2-2hIFNy-old-MB45_S358.filtered.bw \
+    BMDM-Pol2-ctrl-new-MB45_S357.filtered.bw \
   --binSize 10000 \
   --outFileName chipseq_correlation_bins.npz \
   --outRawCounts chipseq_correlation_bins_counts.tab \
   --numberOfProcessors $SLURM_CPUS_PER_TASK
 
-# Plot correlation heatmap
+# Run plotCorrelation on the output from multiBigwigSummary
 plotCorrelation -in chipseq_correlation_bins.npz \
   --corMethod pearson \
   --skipZeros \
   --plotTitle "ChIP-seq correlation (10kb bins)" \
   --whatToPlot heatmap \
-  --colorMap RdYlBu \
-  --plotFile chipseq_correlation_bins_heatmap.pdf
+  --colorMap RdBu_r \
+  --plotFile chipseq_correlation_bins_heatmap.pdf \
+  --labels \
+    pSTAT1_ctrl_R2 pSTAT3_ctrl_R2 pSTAT1_IFNy_R2 pSTAT3_IFNy_R2 \
+    pSTAT1_IFNy_R1 pSTAT3_IFNy_R1 pSTAT1_ctrl_R1 pSTAT3_ctrl_R1 \
+    Pol2_IFNy_new Pol2_ctrl_old Pol2_IFNy_old Pol2_ctrl_new
 
+# Deactivate conda environment
 conda deactivate
+
 
 ```
