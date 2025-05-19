@@ -31,10 +31,7 @@ computeMatrix reference-point \
   ```
 ## Creating heatmap from matrix
 ```bash
-plotHeatmap -m matrix.gz -out Pol2_heatmap_over_STAT_peaks.png \
-  --regionsLabel "STAT1+STAT3" "STAT1 only" "STAT3 only" \
-  --colorMap RdBu_r \
-  --zMin 0
+plotHeatmap -m matrix_pol2_ifny_merged.gz -out Pol2_IFNy_merged_heatmap__STAT_peaks.pdf --regionsLabel "STAT1+STAT3" "STAT1 only" "STAT3 only" --colorMap RdBu_r --zMin 0
 ```
 ## Correlation plot
 ```bash
