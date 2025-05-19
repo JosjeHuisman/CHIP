@@ -1,3 +1,23 @@
+## Merging BigWigs
+```bash
+# merge BigWig into bedGraph
+bigWigMerge BMDM-Pol2-ctrl-old-MB45_S356.filtered.bw BMDM-Pol2-ctrl-new-MB45_S357.filtered.bw Pol2_ctrl_merged.bedGraph
+bigWigMerge BMDM-Pol2-2hIFNy-old-MB45_S358.filtered.bw BMDM-Pol2-2hIFNy-new-MB45_S359.filtered.bw Pol2_ifny_merged.bedGraph
+
+# You need a chromosome sizes file for converting bedGraph into BigWig again
+fetchChromSizes mm10 > mm10.chrom.sizes
+
+# bedGraphToBigWig requires your BedGraph file to be sorted by chromosome name and start coordinate, in a case-sensitive wa
+LC_COLLATE=C sort -k1,1 -k2,2n Pol2_ctrl_merged.bedGraph > Pol2_ctrl_merged.sorted.bedGraph
+LC_COLLATE=C sort -k1,1 -k2,2n Pol2_ifny_merged.bedGraph > Pol2_ifny_merged.sorted.bedGraph
+
+bedGraphToBigWig Pol2_ctrl_merged.bedGraph mm10.chrom.sizes Pol2_ctrl_merged.bw
+bedGraphToBigWig Pol2_ifny_merged.bedGraph mm10.chrom.sizes Pol2_ifny_merged.bw
+
+rm *.bedGraph
+
+
+```
 ## Computing matrix 
 ```bash
 computeMatrix reference-point \
@@ -26,7 +46,7 @@ plotHeatmap -m matrix.gz -out Pol2_heatmap_over_STAT_peaks.png \
 #SBATCH --mem=16G
 #SBATCH --cpus-per-task=4
 
-# Load your conda environment (adjust name if needed)
+# Load your conda environment
 source ~/miniconda3/etc/profile.d/conda.sh
 conda activate deeptools_env
 
